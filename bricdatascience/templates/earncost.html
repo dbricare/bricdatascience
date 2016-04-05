@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Outcomes of US University Education</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" 
+    rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static',filename='css/portfolio-item.css') }}" 
+    rel="stylesheet">
+
+    <!-- Custom Fonts -->    
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://dbricare.github.io">Portfolio Home</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ url_for('earncost') }}">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('rankings') }}">Rankings</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Portfolio Item Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">U.S. College Outcomes
+                    <small>Potential earnings 10 years after graduation</small>
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Portfolio Item Row -->
+        <div class="row">
+            <div class="col-md-8">
+              <p class="text-center"><i>Click on title to collapse/expand panels</i><p>
+                <div class="panel-group">
+                  <div class="panel panel-danger">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">10% chance of earning ${{ earnings }}/year</a>
+                      </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                      {{ dfs['10%'] | safe }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-warning">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse2">25% chance of earning ${{ earnings }}/year</a>
+                      </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                      {{ dfs['25%'] | safe }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-success">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse3">50% chance of earning ${{ earnings }}/year</a>
+                      </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                      {{ dfs['50%'] | safe }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                <h3>Project Description</h3>
+                <p>Prospective students who would like to maximize their potential earnings for a given tuition fee must not only consider the dollar amount, but also how likely they are to meet that goal.</p><p>Reported here are the closest matches for alumni earnings and  current tuition as calculated by a nearest neighbor algorithm based on euclidean distance.</p>
+                <h3>Project Details</h3>
+                <ul>
+                    <li><h4>Full project analysis on <a href="http://github.com/dbricare/CollegeOutcomes">GitHub</a></h4></li>
+                    <li>Tools used include PostgreSQL, Python (<a href="http://www.sqlalchemy.org/">sqlalchemy</a>, <a href="http://pandas.pydata.org">pandas</a>) libraries</li>
+                    <li>Data is from US Dept. of Education <a href="https://collegescorecard.ed.gov/data/">College Scorecard</a> and spans years from 1996 to 2015</li>
+                </ul>
+                <hr>
+                <p><b><i>Use the controls below to see which schools match the desired    
+                annual tuition and alumni earnings.</i></b></p>
+                <form role="form" method="post" action="earncost">
+                <div class="form-group">
+                  <label for="earn">Desired Earnings ($/year): </label>
+                  <input type="number" name="earnings" min="10000" max="200000" id="earn"
+                  step="100" value="{{ earnings }}" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="cost">Desired Tuition ($/year): </label>
+                  <input type="number" name="tuition" min="1" max="100000" 
+                  value="{{ tuition }}" class="form-control" id="cost">
+                </div>
+                <div class="form-group">
+                  <label for="schools">Number of schools: </label>
+                  <input type="number" name="viewsize" min="3" max="20" 
+                  value="{{ viewsize }}" class="form-control" id="schools">
+                </div>
+                <div class="form-group text-center">
+                  <button class="btn btn-primary btn-md">Submit</button>
+                </div>
+                </form>
+
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Related Projects Row -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h3 class="page-header">Related Projects</h3>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <div class="jumbotron text-center related">
+                <h4><a href="{{ url_for('earncost') }}">U.S. University Tuition Cost and Alumni Earnings</a></h4>
+              </div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <div class="jumbotron text-center related">
+                <h4><a href="{{ url_for('rankings') }}">U.S. University Rankings by Foreign Orgs</a></h4>
+              </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        <hr>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>{{ updated }}</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static',filename='js/jquery.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+    
+   
+    <!-- JavaScript -->
+    <script type="text/javascript">
+       // jQuery for bootstrap popover function
+       $(document).ready(function(){
+            $('[data-toggle="popover"]').popover({html : true});   
+        });
+    </script>
+
+</body>
+
+</html>

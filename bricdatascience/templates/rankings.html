@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>US College Rankings by Non-US Organizations</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" 
+    rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static',filename='css/portfolio-item.css') }}" 
+    rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://dbricare.github.io">Portfolio Home</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ url_for('earncost') }}">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('rankings') }}">Rankings</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Portfolio Item Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">US College Rankings
+                    <small>by foreign organizations</small>
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Portfolio Item Row -->
+        <div class="row">
+            <div class="col-md-8">
+              <p class="text-center"><i>Click on title to collapse/expand panels</i><p>
+                <div class="panel-group">
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">Rank 1-10</a>
+                      </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                      <table class="table table-condensed table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="text-center">Rank</th>
+                          <th class="text-center">University Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="text-right">1</td>
+                          <td>Harvard University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">2</td>
+                          <td>Stanford University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">3</td>
+                          <td>Massachusetts Institute Technology</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">4</td>
+                          <td>California Institute Technology</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">4</td>
+                          <td>University California Berkeley</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">5</td>
+                          <td>Princeton University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">6</td>
+                          <td>Columbia University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">7</td>
+                          <td>University Chicago</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">8</td>
+                          <td>Yale University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">9</td>
+                          <td>Cornell University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">10</td>
+                          <td>University California Los Angeles</td>
+                        </tr>
+                      </tbody>
+                      </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse2">Rank 11-20</a>
+                      </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse">
+                      <div class="panel-body">
+                      <table class="table table-condensed table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="text-center">Rank</th>
+                          <th class="text-center">University Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                          <td class="text-right">11</td>
+                          <td>Johns Hopkins University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">11</td>
+                          <td>University Pennsylvania</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">12</td>
+                          <td>Duke University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">12</td>
+                          <td>Northwestern University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">13</td>
+                          <td>New York University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">13</td>
+                          <td>University California San Diego</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">13</td>
+                          <td>University Washington</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">14</td>
+                          <td>Carnegie Mellon University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">15</td>
+                          <td>University Texas Austin</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">16</td>
+                          <td>University California Santa Barbara</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">17</td>
+                          <td>University California Davis</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">18</td>
+                          <td>University North Carolina Chapel Hill</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">19</td>
+                          <td>Brown University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">19</td>
+                          <td>Georgia Institute Technology</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">19</td>
+                          <td>University Southern California</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">20</td>
+                          <td>Boston University</td>
+                        </tr>
+                      </tbody>
+                      </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse3">Rank 21-30</a>
+                      </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                      <div class="panel-body">
+                      <table class="table table-condensed table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="text-center">Rank</th>
+                          <th class="text-center">University Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="text-right">21</td>
+                          <td>University Colorado Boulder</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">21</td>
+                          <td>University Maryland College Park</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">21</td>
+                          <td>Vanderbilt University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">22</td>
+                          <td>University California Irvine</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">23</td>
+                          <td>Dartmouth College</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">23</td>
+                          <td>Emory University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">23</td>
+                          <td>Rice University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">23</td>
+                          <td>University Florida</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">24</td>
+                          <td>Michigan State University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">25</td>
+                          <td>Georgetown University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">25</td>
+                          <td>University Notre Dame</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">26</td>
+                          <td>Tufts University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">26</td>
+                          <td>University California Santa Cruz</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">26</td>
+                          <td>University Virginia</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">27</td>
+                          <td>Case Western Reserve University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">27</td>
+                          <td>University Arizona</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">27</td>
+                          <td>University Rochester</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">27</td>
+                          <td>University Utah</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">28</td>
+                          <td>Arizona State University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">28</td>
+                          <td>University Miami</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">29</td>
+                          <td>University California Riverside</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">29</td>
+                          <td>Yeshiva University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">30</td>
+                          <td>Boston College</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">30</td>
+                          <td>Brandeis University</td>
+                        </tr>
+                      </tbody>
+                      </table>  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse4">Rank 31-32</a>
+                      </h4>
+                    </div>
+                    <div id="collapse4" class="panel-collapse collapse">
+                      <div class="panel-body">
+                      <table class="table table-condensed table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="text-center">Rank</th>
+                          <th class="text-center">University Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Drexel University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Florida State University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>George Washington University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Iowa State University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Northeastern University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Oregon State University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Rensselaer Polytechnic Institute</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Rush University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Stony Brook University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Tulane University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>University Cincinnati</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>University Connecticut</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>University Delaware</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>University Georgia</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>University Houston</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>University Illinois Chicago</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>University Iowa</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>University Oregon</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>University South Florida</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>University Tennessee Knoxville</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>University Texas Dallas</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Virginia Polytechnic Institute And State University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Wake Forest University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">31</td>
+                          <td>Wayne State University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">32</td>
+                          <td>Auburn University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">32</td>
+                          <td>Clemson University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">32</td>
+                          <td>Florida International University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">32</td>
+                          <td>George Mason University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">32</td>
+                          <td>Kansas State University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">32</td>
+                          <td>Saint Louis University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">32</td>
+                          <td>San Diego State University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">32</td>
+                          <td>Syracuse University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">32</td>
+                          <td>Temple University</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">32</td>
+                          <td>University Alaska Fairbanks</td>
+                        </tr>
+                        <tr>
+                          <td class="text-right">32</td>
+                          <td>University Maryland Baltimore County</td>
+                        </tr>
+                      </tbody>
+                      </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                <h3>Project Description</h3>
+                <p>Data from three independent organizations: <a href="https://www.timeshighereducation.com/">Times Higher Education</a>, <a href="http://www.shanghairanking.com">Academic Ranking of World Universities (ARWU)</a>, and <a href="http://cwur.org/">Center for World University Rankings (CWUR)</a> is combined to give an outside perspective on the relative <b><i>national rank</i></b> of the top 80+ universities in the US.</p><p>The rank determined by each organization is weighted. Both CWUR and ARWU heavily emphasize prestige-related factors (e.g., number of nobel laurates, high profile publications, number of alumni as CEOs, etc.) so their contributions to the final score are reduced relative to that of Times Higher Education.</p><p>Only those universities that appear in all 3 rankings are included in these results.</p>
+                <h3>Project Details</h3>
+                <ul>
+                    <li><h4>Full project analysis on <a href="http://github.com/dbricare/CollegeOutcomes">GitHub</a></h4></li>
+                    <li>Tools used include PostgreSQL, Python (<a href="http://www.sqlalchemy.org/">sqlalchemy</a>, <a href="http://pandas.pydata.org">pandas</a>) libraries</li>
+                    <li>Data downloaded from <a href="http://www.kaggle.com/datasets">Kaggle</a></li>
+                    <li>Additional data scraped from <a href="http://www.shanghairanking.com/index.html">ARWU</a> using Python(<a href="http://lxml.de/">lxml</a>)</li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <!-- Related Projects Row -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h3 class="page-header">Related Projects</h3>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <div class="jumbotron text-center related">
+                <h4><a href="{{ url_for('earncost') }}">U.S. University Tuition Cost and Alumni Earnings</a></h4>
+              </div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <div class="jumbotron text-center related">
+                <h4><a href="{{ url_for('rankings') }}">U.S. University Rankings by Foreign Orgs</a></h4>
+              </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        <hr>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>{{ updated }}</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static',filename='js/jquery.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+
+</body>
+
+</html>

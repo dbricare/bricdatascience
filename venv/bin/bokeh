@@ -1,0 +1,7 @@
+#!/home/vagrant/bricds/venv/bin/python3
+
+import sys
+
+from bokeh.command.bootstrap import main
+
+main(sys.argv)
