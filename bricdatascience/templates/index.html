@@ -22,6 +22,8 @@
     <!-- Custom Fonts -->
     <link href="{{ url_for('static',filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    
+    <link href="{{ url_for('static',filename='favicon.ico') }}" rel="icon" type="image/x-icon" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -130,11 +132,11 @@
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading"><a href="http://genediseaselink.com">Genetic Links to Health</a></h2>
+                    <h2 class="section-heading"><a href="{{ url_for('genediseaselink') }}">Genetic Links to Health</a></h2>
                     <p class="lead">Identifying the most likely genetic cause of a disease  can help pharmaceutical companies better target their R&D efforts. This data-centric approach to drug development may help bring down consumer drug prices.</p><i>Site may take a few seconds to load.</i>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <a href="http://genediseaselink.com"><img class="img-responsive rounded" src="{{ url_for('static',filename='img/gda.jpg') }}" alt=""></a>
+                    <a href="{{ url_for('genediseaselink') }}"><img class="img-responsive rounded" src="{{ url_for('static',filename='img/gda.jpg') }}" alt=""></a>
                 </div>
             </div>
 

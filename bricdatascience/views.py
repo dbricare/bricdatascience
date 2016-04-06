@@ -2,12 +2,12 @@
 import numpy as np
 import pandas as pd
 # import dill as pickle
-from bricdatascience.models import moddate, babynamepop, knnestimate
+from bricdatascience.models import moddate, babynamepop, knnestimate, gda
 # from sklearn.neighbors import NearestNeighbors
 from bricdatascience import app
 from flask import Flask, render_template, request, redirect
 from bokeh.plotting import figure, output_file, save, show, ColumnDataSource
-from bokeh.models import HoverTool, NumeralTickFormatter
+from bokeh.models import HoverTool, NumeralTickFormatter, TapTool, OpenURL
 from bokeh.embed import components
 
 ### flask page functions
@@ -145,5 +145,82 @@ def babynamespopularity():
     updated = moddate()
 
     return render_template('babynamespopularity.html', script=script, div=div, updated=updated, mincount=mincount, viewsize=viewsize, glist=glist, poplist=poplist, gcheck=gender, earliest=earliest, latest=latest, pcheck='{:.2f}'.format(popularity))
-        
+    
+
+### genetic links to health
+@app.route('/genediseaselink', methods=['GET', 'POST'])
+def genediseaselink(): 
+    dfall, catlist, atypelist, perclist, catclr, disease_dict, atype_dict = gda()
+    dfstash = dfall.copy()
+    # return user-selected data
+    jump = ''
+    selcat = ''
+    selatype = ''
+    errmsg = ''
+    selperc = '00'
+    if request.method=='POST':
+        jump = '<script> window.location.hash="gdaplot"; </script>'
+        selcat = request.form['selectioncat']
+        selatype = request.form['selectiontype']
+        selperc = request.form['selectioncir']
+        cirrad = np.percentile(dfall['ideal'],int(selperc))
+        if selcat != 'all':
+            dfall = dfall[dfall['category']==disease_dict[selcat]]
+        if selatype != 'all':
+            dfall = dfall[dfall['associationType']==atype_dict[selatype]]
+#         if selperc != '00':
+        if len(dfall)==0:
+            dfall = dfstash.copy()
+            selcat='all'
+            selatype='all'
+            errmsg='No data found for selected filters'
+    yy = dfall['count_total']
+    xx = dfall['score_total']
+
+    # Generate plot
+    output_file("templates/index.html")
+    dfall['color'] = dfall['category'].map(lambda x: catclr[x])
+    source = ColumnDataSource(
+        data=dict(
+            x=xx,
+            y=yy,
+            genes=dfall['geneCount'],
+            desc=dfall['diseaseName'],
+            desc2=dfall['geneSymbol'],
+            cat=dfall['category'],
+            assoc=dfall['associationType'],
+            prev=dfall['Prevalence']
+        )
+    )
+    hover = HoverTool(tooltips=[("Disease", "@desc"), ("Category", "@cat"), 
+    ("Prevalence", "@prev"), ("Gene", "@desc2"), ("Type", "@assoc"), 
+    ("Association", "@x{0.000}"), ("Specificity", "@y{0.000}")], names=['pts'])
+
+    p = figure(plot_width=900, plot_height=600, tools=['box_zoom','pan','reset',
+    'save',hover,'tap'], x_range=[0,0.8], y_range=[0,0.8], 
+    title='Associations above high-quality threshold')
+    p.title_text_font = 'Source Sans Pro'
+    p.xaxis.axis_label = 'Association Score'
+    p.yaxis.axis_label = 'Specificity Score'
+    p.xaxis.axis_label_text_font = 'Source Sans Pro'
+    p.yaxis.axis_label_text_font = 'Source Sans Pro'
+    if selperc != '00':
+        xcir = np.linspace(-0.6,1,100)
+        ycir = 1-np.sqrt(np.square(cirrad)-np.square(xcir-1))
+        xcir = np.append(xcir, 1.0)
+        ycir = np.append(ycir, 1.0)
+        p.patch(xcir, ycir, line_color='#33ff33', fill_alpha=0.15, color='#ccffcc', 
+        line_width=1)
+    p.circle('x', 'y', size=15+dfall['PrevalenceCode']*5, fill_alpha=0.5, 
+    color=dfall['color'], source=source, line_width=0.75, line_color='#000000', 
+    name='pts')  
+    url = "http://www.ncbi.nlm.nih.gov/pubmed/?term=@desc+@desc2"
+    taptool = p.select(type=TapTool)
+    taptool.callback = OpenURL(url=url)
+    p.responsive = True
+    script, div = components(p)
+    # modification date
+    updated = moddate()
+    return render_template('gda.html', script=script, div=div, catlist=catlist, atypelist=atypelist, selcat=selcat, selatype=selatype, perclist=perclist, selperc=selperc, updated=updated, jumpscript=jump, errmsg = errmsg)        
+
     
