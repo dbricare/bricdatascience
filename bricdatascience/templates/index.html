@@ -9,7 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Portfolio of Dan Bricarello</title>
+    <title>Dan Bricarello - Portfolio</title>
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='img/favicon.ico') }}" />
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" 
@@ -133,7 +135,7 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading"><a href="{{ url_for('genediseaselink') }}">Genetic Links to Health</a></h2>
-                    <p class="lead">Identifying the most likely genetic cause of a disease  can help pharmaceutical companies better target their R&D efforts. This data-centric approach to drug development may help bring down consumer drug prices.</p><i>Site may take a few seconds to load.</i>
+                    <p class="lead">Identifying the most likely genetic cause of a disease  can help pharmaceutical companies better target their R&D efforts. This data-centric approach to drug development may help bring down consumer drug prices.</p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
                     <a href="{{ url_for('genediseaselink') }}"><img class="img-responsive rounded" src="{{ url_for('static',filename='img/gda.jpg') }}" alt=""></a>
@@ -265,7 +267,7 @@
                             <a href="#contact">Contact</a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted small">Last updated: March 31, 2016</p>
+                    <p class="copyright text-muted small">{{ updated }}</p>
                 </div>
             </div>
         </div>
