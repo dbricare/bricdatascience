@@ -103,10 +103,8 @@
     <!-- /.intro-header -->
 
     <!-- Page Content -->
-
 	<a  name="about"></a>
     <div class="content-section-a">
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-sm-6">
@@ -119,100 +117,54 @@
                     <img class="img-responsive rounded" src="{{ url_for('static',filename='img/folders.jpg') }}" alt="">
                 </div>
             </div>
-
         </div>
         <!-- /.container -->
-
     </div>
-    <!-- /.content-section-a -->
-	<a  name="projects"></a>
-    <div class="content-section-b">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading"><a href="{{ url_for('genediseaselink') }}">Genetic Links to Health</a></h2>
-                    <p class="lead">Identifying the most likely genetic cause of a disease  can help pharmaceutical companies better target their R&D efforts. This data-centric approach to drug development may help bring down consumer drug prices.</p>
-                </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <a href="{{ url_for('genediseaselink') }}"><img class="img-responsive rounded" src="{{ url_for('static',filename='img/gda.jpg') }}" alt=""></a>
+    <!-- /.content-section -->
+    <a  name="projects"></a>
+    {% for project in arr %}
+      {% if project['cont'][-1]=='b' %}
+        <div class="{{ project['cont'] }}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                        <hr class="section-heading-spacer">
+                        <div class="clearfix"></div>
+                        <h2 class="section-heading"><a href="{{ url_for(project['name']) }}">{{ project['title'] }}</a></h2>
+                        <p class="lead">{{ project['text'] }}</p>
+                    </div>
+                    <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                        <a href="{{ url_for(project['name']) }}"><img class="img-responsive rounded" src="{{ url_for('static',filename=project['img']) }}" alt=""></a>
+                    </div>
                 </div>
             </div>
-
+            <!-- /.container -->
         </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-b -->
-
-    <div class="content-section-a">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading"><a href="{{ url_for('babynamespopularity') }}">Trends in U.S. Baby Names</a></h2>
-                    <p class="lead">For parents (or others) who are curious about the popularity of children's names. Find out the historical popularity of your own name or perhaps a potential name for your child.</p>
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <a href="{{ url_for('babynamespopularity') }}"><img class="img-responsive rounded" src="{{ url_for('static',filename='img/child.jpg') }}" alt=""></a>
+      {% else %}
+        <div class="{{ project['cont'] }}">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-5 col-sm-6">
+                      <hr class="section-heading-spacer">
+                      <div class="clearfix"></div>
+                      <h2 class="section-heading"><a href="{{ url_for(project['name']) }}">{{ project['title'] }}</a></h2>
+                      <p class="lead">{{ project['text'] }}</p>
+                  </div>
+                  <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                      <a href="{{ url_for(project['name']) }}"><img class="img-responsive rounded" src="{{ url_for('static',filename=project['img']) }}" alt=""></a>
                 </div>
             </div>
-
         </div>
         <!-- /.container -->
+      </div>
+      {% endif %}
+    {% endfor %}
 
+
+<!-- 
     </div>
-    <!-- /.content-section-c -->
-    
-        <div class="content-section-b">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading"><a href="{{ url_for('earncost') }}">US College Outcomes & Rankings</a></h2>
-                    <p class="lead">Data from the US Dept. of Education and three independent international organizations is combined to evaluate the performance of US universities.</p>
-                </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <a href="{{ url_for('earncost') }}"><img class="img-responsive rounded" src="{{ url_for('static',filename='img/education.jpg') }}" alt=""></a>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-d -->
-
-    <div class="content-section-a">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading"><a href="{{ url_for('loans') }}">Personal Loan Outcomes</a></h2>
-                    <p class="lead">A brief exploratory analysis of personal loan data, in search of insights that might aid in predicting when and what loans will default.</p>
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <a href="{{ url_for('loans') }}"><img class="img-responsive rounded" src="{{ url_for('static',filename='img/money.jpg') }}" alt=""></a>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-c -->
+    <!~~ /.content-section-c ~~>
+ -->
 
     <!-- banner -->
 	<a  name="contact"></a>

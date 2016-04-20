@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Shelter Animal Outcomes</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" 
+    rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static',filename='css/portfolio-item.css') }}" 
+    rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('index') }}">Portfolio Home</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<!-- 
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ url_for('earncost') }}">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('rankings') }}">Rankings</a>
+                    </li>
+                </ul>
+ -->
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Portfolio Item Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Shelter Animal Outcomes
+                    <small>predicted by machine learning</small>
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+      <!-- Portfolio Item Row -->
+      <div class="row">
+        <div class="col-md-8">
+            <p>{{ res }}</p>
+            <h4 class="text-center">Predicted Probability for Each Outcome</h4>
+            <table class="table table-striped">
+            <tr>
+              <th>Adoption</th>
+              <th>Died</th>
+              <th>Euthanasia</th>
+              <th>Return to owner</th>
+              <th>Transfer to outside org</th>
+            </tr>
+            <tr>
+              {% for prob in probs %}
+                <td class="fade">{{ prob }} chance</td>
+              {% endfor %}
+            </tr>
+            </table>
+            <p>&nbsp;</p>
+            <hr class="sep">
+          <div class="panel panel-info">
+          <div class="panel-heading text-center"><h4><b><i>Select factors to include in prediction</i></b></h4>
+          </div>
+          <div class="panel-body">
+            <form role="form" method="post" action="shelteranimals" 
+            class="form-horizontal">
+                <div class="form-group text-center">
+                    <!-- <div class="col-sm-1"></div> -->
+                    <div class="col-sm-4">
+                      <p><b>Animal type</b></p>
+                      {% for type in types %}
+                        {% if type==seltype %}
+                          <label class="radio-inline">
+                          <input type="radio" name="type" 
+                          value="{{ type }}" checked>{{ type }}</label>
+                        {% else %}
+                          <label class="radio-inline">
+                          <input type="radio" name="type"
+                          value="{{ type }}">{{ type }}</label>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    <div class="col-sm-4">
+                      <p><b>Animal name status</b></p>
+                      {% for name in names %}
+                        {% if name==selname %}
+                          <label class="radio-inline">
+                          <input type="radio" name="named" 
+                          value="{{ name }}" checked>{{ name }}</label>
+                        {% else %}
+                          <label class="radio-inline">
+                          <input type="radio" name="named" 
+                          value="{{ name }}">{{ name }}</label>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    <div class="col-sm-4">
+                      <p><b>Breed</b></p>
+                      {% for breed in breeds %}
+                        {% if breed==selbreed %}
+                          <label class="radio-inline">
+                          <input type="radio" name="breed" 
+                          value="{{ breed }}" checked>{{ breed }}</label>
+                        {% else %}
+                          <label class="radio-inline">
+                          <input type="radio" name="breed"
+                          value="{{ breed }}">{{ breed }}</label>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                </div>
+                <p>&nbsp;</p>
+                <div class="form-group">
+                    <label for="gender" class="control-label col-sm-2">Gender: </label>
+                    <div class="col-sm-3">
+                      <select name="gender" id="gender" class="form-control">
+                      {% for gender in genders %}
+                        {% if gender==selgender %}
+                          <option value="{{ gender }}" selected>{{ gender }}</option>
+                        {% else %}
+                          <option value="{{ gender }}">{{ gender }}</option>
+                        {% endif %}
+                      {% endfor %}
+                      </select>
+                    </div>
+                    <label for="age" class="control-label col-sm-1">Age: </label>
+                    <div class="col-sm-2">
+                      <input type="number" name="age" min="0" id="age" 
+                      value="{{ selagenum }}" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                    <select name="ageunit" value="{{ selageunit }}" id="age"
+                      class="form-control">
+                      {% for ageunit in ageunits %}
+                        {% if ageunit==selageunit %}
+                          <option selected>{{ ageunit }}</option>
+                        {% else %}
+                          <option>{{ ageunit }}</option>
+                        {% endif %}
+                      {% endfor %}
+                    </select>
+                    </div>
+                </div>
+                <p>&nbsp;</p>
+                <p class="text-center"><b>Time and Date of Intake</b></p>
+                <div class="form-group">
+                  <label for="hour" class="control-label col-sm-4">Hour: </label>
+                  <div class="col-sm-2">
+                    <input type="number" name="hour" min="0" max="23" id="hour"
+                    value="{{ selhour }}" class="form-control">
+                  </div>
+                  <label for="minute" class="control-label col-sm-2">Minute: </label>
+                  <div class="col-sm-2">
+                    <input type="number" name="minute" min="0" max="59" id="minute"
+                    value="{{ selmin }}" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="date" class="control-label col-sm-7">Date between 
+                  October 1, 2013 and March 1, 2016:</label>
+                  <div class="col-sm-4">
+                    <input type="date" name="date" min="2013-10-01" max="2016-03-01" 
+                    value="{{ seldate }}" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group text-center">
+                  <button class="btn btn-primary btn-md">Predict Outcomes</button>
+                </div>
+                <!-- Form group -->
+            </form>
+            </div>
+            <!-- Panel body -->
+            </div>        
+            <!-- Panel group -->
+        </div>
+        <div class="col-md-4">
+                <h3>Project Description</h3>
+                <p>This project comes from a kaggle competition that tries to predict outcomes for animals based upon information collected at intake. All data comes from the <a href="http://www.austintexas.gov/department/animal-services">Austin Animal Center</a>.</p>
+                <p>The highest scoring (i.e., lowest log-loss) model uses a cross-validated gradient tree boosting classifier.</p>
+                <p>Features used include: age upon outcome, gender, animal type (dog or cat), named or unnamed, date and time of intake, purebred or mix.</p>
+                <h3>Project Details</h3>
+                <ul>
+                    <li><h4>Full project analysis on <a href="http://github.com/dbricare/ShelterAnimalOutcomes">GitHub</a></h4></li>
+                    <li>Tools used include Python <a href="http://pandas.pydata.org">pandas</a> and <a href="http://scikit-learn.org/stable/index.html">scikit-learn</a> libraries</li>
+                    <li>Data downloaded from <a href="https://www.kaggle.com/c/shelter-animal-outcomes/">Kaggle</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <!-- Related Projects Row -->
+<!-- 
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">Related Projects</h3>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <div class="jumbotron text-center related">
+                <h4><a href="{{ url_for('earncost') }}">U.S. University Tuition Cost and Alumni Earnings</a></h4>
+              </div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <div class="jumbotron text-center related">
+                <h4><a href="{{ url_for('rankings') }}">U.S. University Rankings by Foreign Orgs</a></h4>
+              </div>
+            </div>
+        </div>
+ -->
+        <!-- /.row -->
+        <hr>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>{{ updated }}</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static',filename='js/jquery.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+
+
+</body>
+
+</html>

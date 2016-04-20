@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 # import dill as pickle
-from bricdatascience.models import moddate, babynamepop, knnestimate, gda
+from bricdatascience.models import moddate, babynamepop, knnestimate, gda, saformat, genidx
 # from sklearn.neighbors import NearestNeighbors
 from bricdatascience import app
 from flask import Flask, render_template, request, redirect
@@ -18,9 +18,10 @@ def main():
 ### landing page
 @app.route('/index')
 def index():
+    arr = genidx()
     # modification date
     updated = moddate()
-    return render_template('index.html', updated=updated)
+    return render_template('index.html', updated=updated, arr=arr)
  
 ### college rankings
 @app.route('/rankings')
@@ -224,3 +225,47 @@ def genediseaselink():
     return render_template('gda.html', script=script, div=div, catlist=catlist, atypelist=atypelist, selcat=selcat, selatype=selatype, perclist=perclist, selperc=selperc, updated=updated, jumpscript=jump, errmsg = errmsg)        
 
     
+### shelter animal outcomes
+@app.route('/shelteranimals', methods=['GET', 'POST'])
+def shelteranimals():
+    # options
+    names = ['Named', 'Unnamed']
+    types = ['Dog', 'Cat']
+    genders = ['Intact Female', 'Intact Male', 'Neutered Male', 'Spayed Female', 
+                'Unknown']
+    breeds = ['Mix', 'Pure breed', 'Pit bull']
+    ageunits = ['days', 'weeks', 'months', 'years']
+    # for get method
+    selname = 'Named'
+    seltype = 'Dog'
+    selgender = 'Neutered Male'
+    selbreed = 'Mix'
+    selagenum = '1'
+    selageunit = 'years'
+    seldate = '2016-01-02'
+    selhour = '17'
+    selmin = '0'
+    res = ''
+    if request.method=='POST':
+        selname = request.form['named']
+        seltype = request.form['type']
+        selgender = request.form['gender']
+        selbreed = request.form['breed']
+        selagenum = request.form['age']
+        selageunit = request.form['ageunit']
+        seldate = request.form['date']
+        selhour = request.form['hour']
+        selmin = request.form['minute']
+    # error handling
+    if seltype=='Cat' and selbreed=='Pit bull':
+        probs = ['0%']*5
+    else:
+        probs = saformat(selname, seltype, selgender, selbreed, selagenum+' '+selageunit, 
+        seldate, selhour, selmin)
+    # modification date
+    updated = moddate()
+    return render_template('shelteranimals.html', probs=probs, updated=updated, 
+    names=names, selname=selname, types=types, seltype=seltype, 
+    breeds=breeds, selbreed=selbreed, genders=genders, selgender=selgender, 
+    selagenum=selagenum, ageunits=ageunits, selageunit=selageunit, 
+    selhour=selhour, selmin=selmin, seldate=seldate, res=res)

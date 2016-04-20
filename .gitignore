@@ -66,4 +66,4 @@ target/
 
 # ignore temp files
 ._*
-.DS_Store
+*.DS_Store
