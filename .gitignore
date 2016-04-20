@@ -63,6 +63,8 @@ target/
 
 # ignore data
 *.csv
+*.tsv
+*.pkl
 
 # ignore temp files
 ._*
