@@ -67,8 +67,8 @@
         <!-- Portfolio Item Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Shelter Animal Outcomes
-                    <small>predicted by machine learning</small>
+                <h1 class="page-header">Shelter Animals
+                    <small>outcomes predicted by machine learning</small>
                 </h1>
             </div>
         </div>
@@ -78,7 +78,7 @@
       <div class="row">
         <div class="col-md-8">
             <p>{{ res }}</p>
-            <h4 class="text-center">Predicted Probability for Each Outcome</h4>
+            <h3 class="text-center">Predicted Outcomes</h3>
             <table class="table table-striped text-center">
             <tr>
               <th class="text-center">Adoption</th>
@@ -93,41 +93,47 @@
               {% endfor %}
             </tr>
             </table>
-            <p>&nbsp;</p>
+            <p class="error">{{ error|safe }}</p>
             <hr class="sep">
+            <p class="error">&nbsp;</p>
           <div class="panel panel-info">
-          <div class="panel-heading text-center"><h4><b><i>Select factors to include in prediction</i></b></h4>
+          <div class="panel-heading text-center"><h3><i>Select factors to include in 
+          outcome prediction</i></h3>
           </div>
           <div class="panel-body">
             <form role="form" method="post" action="shelteranimals" 
             class="form-horizontal">
+              <h4><u>Intake factors</u></h4>
                 <div class="form-group text-center">
-                    <!-- <div class="col-sm-1"></div> -->
                     <div class="col-sm-4">
                       <p><b>Animal type</b></p>
                       {% for type in types %}
                         {% if type==seltype %}
-                          <label class="radio-inline">
-                          <input type="radio" name="type" 
+                          <div class="radio"><label>
+                          <input type="radio" name="type"
                           value="{{ type }}" checked>{{ type }}</label>
+                          </div>
                         {% else %}
-                          <label class="radio-inline">
+                          <div class="radio"><label>
                           <input type="radio" name="type"
                           value="{{ type }}">{{ type }}</label>
+                          </div>
                         {% endif %}
                       {% endfor %}
                     </div>
                     <div class="col-sm-4">
-                      <p><b>Animal name status</b></p>
+                      <p><b>Name at intake</b></p>
                       {% for name in names %}
                         {% if name==selname %}
-                          <label class="radio-inline">
-                          <input type="radio" name="named" 
+                          <div class="radio"><label>
+                          <input type="radio" name="named"
                           value="{{ name }}" checked>{{ name }}</label>
+                          </div>
                         {% else %}
-                          <label class="radio-inline">
-                          <input type="radio" name="named" 
+                          <div class="radio"><label>
+                          <input type="radio" name="named"
                           value="{{ name }}">{{ name }}</label>
+                          </div>
                         {% endif %}
                       {% endfor %}
                     </div>
@@ -135,21 +141,55 @@
                       <p><b>Breed</b></p>
                       {% for breed in breeds %}
                         {% if breed==selbreed %}
-                          <label class="radio-inline">
-                          <input type="radio" name="breed" 
+                          <div class="radio"><label>
+                          <input type="radio" name="breed"
                           value="{{ breed }}" checked>{{ breed }}</label>
+                          </div>
                         {% else %}
-                          <label class="radio-inline">
+                          <div class="radio"><label>
                           <input type="radio" name="breed"
                           value="{{ breed }}">{{ breed }}</label>
+                          </div>
                         {% endif %}
                       {% endfor %}
                     </div>
                 </div>
-                <p>&nbsp;</p>
+                <p class="text-center"><b>Time and Date of Intake</b></p>
                 <div class="form-group">
-                    <label for="gender" class="control-label col-sm-2">Gender: </label>
+                  <div class="col-sm-6">
+                    <label for="hour" class="control-label col-sm-9">Hour of day: </label>
                     <div class="col-sm-3">
+                    <input type="number" name="hour" min="0" max="23" id="hour"
+                    value="{{ selhour }}" class="form-control">
+                    </div>
+                    <!-- <div class="col-sm-4"></div> -->
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="minute" class="control-label col-sm-2">Minute: </label>
+                    <div class="col-sm-3">
+                    <input type="number" name="minute" min="0" max="59" id="minute"
+                    value="{{ selmin }}" class="form-control">
+                    </div>
+                    <div class="col-sm-7"></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-12">
+                    <label for="date" class="control-label col-sm-2">Date:</label>
+                    <div class="col-sm-4">
+                    <input type="date" name="date" min="2013-10-01" max="2016-03-01" 
+                    value="{{ seldate }}" class="form-control">
+                    </div>
+                    <div class="col-sm-6"><i>(between 10/1/2013 and 3/1/2016)</i>
+                    </div>
+                  </div>
+                </div>
+              <p>&nbsp;</p>
+              <h4><u>Outcome factors</u></h4>
+                <div class="form-group">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-4">
+                    <label for="gender" class="control-label">Gender at Outcome:</label>
                       <select name="gender" id="gender" class="form-control">
                       {% for gender in genders %}
                         {% if gender==selgender %}
@@ -159,14 +199,16 @@
                         {% endif %}
                       {% endfor %}
                       </select>
-                    </div>
-                    <label for="age" class="control-label col-sm-1">Age: </label>
-                    <div class="col-sm-2">
+                  </div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-3">
+                    <label for="age" class="control-label">Age at Outcome:</label>
                       <input type="number" name="age" min="0" id="age" 
                       value="{{ selagenum }}" class="form-control">
-                    </div>
-                    <div class="col-sm-2">
-                    <select name="ageunit" value="{{ selageunit }}" id="age"
+                  </div>
+                  <div class="col-sm-2">
+                  <label for="ageunit" class="control-label">&nbsp; </label>
+                    <select name="ageunit" value="{{ selageunit }}" id="ageunit"
                       class="form-control">
                       {% for ageunit in ageunits %}
                         {% if ageunit==selageunit %}
@@ -176,34 +218,13 @@
                         {% endif %}
                       {% endfor %}
                     </select>
-                    </div>
-                </div>
-                <p>&nbsp;</p>
-                <p class="text-center"><b>Time and Date of Intake</b></p>
-                <div class="form-group">
-                  <label for="hour" class="control-label col-sm-4">Hour: </label>
-                  <div class="col-sm-2">
-                    <input type="number" name="hour" min="0" max="23" id="hour"
-                    value="{{ selhour }}" class="form-control">
                   </div>
-                  <label for="minute" class="control-label col-sm-2">Minute: </label>
-                  <div class="col-sm-2">
-                    <input type="number" name="minute" min="0" max="59" id="minute"
-                    value="{{ selmin }}" class="form-control">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="date" class="control-label col-sm-7">Date between 
-                  October 1, 2013 and March 1, 2016:</label>
-                  <div class="col-sm-4">
-                    <input type="date" name="date" min="2013-10-01" max="2016-03-01" 
-                    value="{{ seldate }}" class="form-control">
-                  </div>
-                </div>
-                <div class="form-group text-center">
-                  <button class="btn btn-primary btn-md">Predict Outcomes</button>
+                  <div class="col-sm-1"></div>
                 </div>
                 <!-- Form group -->
+                <div class="form-group text-center" id="predict">
+                  <button class="btn btn-primary btn-md">Predict Outcomes</button>
+                </div>
             </form>
             </div>
             <!-- Panel body -->
@@ -212,9 +233,10 @@
         </div>
         <div class="col-md-4">
                 <h3>Project Description</h3>
-                <p>This project comes from a kaggle competition that tries to predict outcomes for animals based upon information collected at intake. All data comes from the <a href="http://www.austintexas.gov/department/animal-services">Austin Animal Center</a>.</p>
+                <p>This machine learning model <b>predicts outcomes</b> for animals delivered to a municipal shelter based upon information collected at intake and when they leave.</p>
+                <p>The concept and data for this project comes from a Kaggle competition. The original data source is the <a href="http://www.austintexas.gov/department/animal-services">Austin Animal Center</a>.</p>
                 <p>The highest scoring (i.e., lowest log-loss) model uses a cross-validated gradient tree boosting classifier.</p>
-                <p>Features used include: age upon outcome, gender, animal type (dog or cat), named or unnamed, date and time of intake, purebred or mix.</p>
+                <p>Features used include: age upon outcome, gender upon outcome, animal type (dog or cat), named or unnamed, date and time of intake, purebred or mix.</p>
                 <h3>Project Details</h3>
                 <ul>
                     <li><h4>Full project analysis on <a href="http://github.com/dbricare/ShelterAnimalOutcomes">GitHub</a></h4></li>

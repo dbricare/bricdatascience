@@ -259,13 +259,15 @@ def shelteranimals():
     # error handling
     if seltype=='Cat' and selbreed=='Pit bull':
         probs = ['0%']*5
+        error = 'Cats cannot be pit bulls! Please select again.'
     else:
         probs = saformat(selname, seltype, selgender, selbreed, selagenum+' '+selageunit, 
         seldate, selhour, selmin)
+        error = '&nbsp;'
     # modification date
     updated = moddate()
     return render_template('shelteranimals.html', probs=probs, updated=updated, 
     names=names, selname=selname, types=types, seltype=seltype, 
     breeds=breeds, selbreed=selbreed, genders=genders, selgender=selgender, 
     selagenum=selagenum, ageunits=ageunits, selageunit=selageunit, 
-    selhour=selhour, selmin=selmin, seldate=seldate, res=res)
+    selhour=selhour, selmin=selmin, seldate=seldate, res=res, error = error)
