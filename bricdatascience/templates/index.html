@@ -98,7 +98,6 @@
 
         </div>
         <!-- /.container -->
-
     </div>
     <!-- /.intro-header -->
 
@@ -122,7 +121,7 @@
     </div>
     <!-- /.content-section -->
     <a  name="projects"></a>
-    {% for project in arr %}
+    {%- for project in arr -%}
       {% if project['cont'][-1]=='b' %}
         <div class="{{ project['cont'] }}">
             <div class="container">
@@ -140,7 +139,7 @@
             </div>
             <!-- /.container -->
         </div>
-      {% else %}
+      {%- else -%}
         <div class="{{ project['cont'] }}">
           <div class="container">
               <div class="row">
@@ -157,14 +156,8 @@
         </div>
         <!-- /.container -->
       </div>
-      {% endif %}
+      {%- endif -%}
     {% endfor %}
-
-
-<!-- 
-    </div>
-    <!~~ /.content-section-c ~~>
- -->
 
     <!-- banner -->
 	<a  name="contact"></a>
@@ -193,7 +186,6 @@
 
         </div>
         <!-- /.container -->
-
     </div>
     <!-- /.banner -->
 
