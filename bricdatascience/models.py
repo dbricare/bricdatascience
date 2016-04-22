@@ -15,27 +15,33 @@ gbc = joblib.load('gbc.pkl')
 
 # generate index page
 def genidx():
-    # ordered list of projects and properties (type, fn, name, text, img)
-    arr = [{'cont':'content-section-b', 'name':'genediseaselink', 
+    # ordered list of projects and properties (name, pgtitle, text, img)
+    arr = [{'name':'genediseaselink', 
             'title':'Genetic Links to Health', 'img':'img/gda.jpg',
             'text': 'Identifying the most likely genetic cause of a disease can help pharmaceutical companies better target their R&D efforts. This data-centric approach to drug development may help bring down consumer drug prices.'
             },
-            {'cont':'content-section-a', 'name':'shelteranimals',
+            {'name':'shelteranimals',
              'title':'Shelter Animal Outcomes', 'img':'img/pet.jpg',
              'text':'Using machine learning to predict the outcome for animals dropped off at a municipal animal shelter. Project based on a 2016 kaggle competition.'
              },
-             {'cont':'content-section-b', 'name':'babynamespopularity',
+             {'name':'babynamespopularity',
              'title':'Trends in U.S. Baby Names', 'img':'img/child.jpg',
              'text':"For parents (or others) who are curious about the popularity of children's names. Find out the historical popularity of your own name or perhaps a potential name for your child."
              },
-             {'cont':'content-section-a', 'name':'earncost',
+             {'name':'earncost',
              'title':'College Outcomes & Rankings', 'img':'img/education.jpg',
              'text':'Data from the US Dept. of Education and three independent international organizations is combined to evaluate the performance of US universities.'
              },
-             {'cont':'content-section-b', 'name':'loans',
+             {'name':'loans',
              'title':'Personal Loan Outcomes', 'img':'img/money.jpg',
              'text':'A brief exploratory analysis of personal loan data, in search of insights that might aid in predicting when and what loans will default.'
              }]
+    # specify striping
+    for idx,item in enumerate(arr):
+        if idx%2 == 0:
+            item['cont'] = 'content-section-b'
+        else:
+            item['cont'] = 'content-section-a'
     return arr
 
 # last modified date
