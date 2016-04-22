@@ -246,6 +246,9 @@ def shelteranimals():
     selhour = '17'
     selmin = '0'
     res = ''
+    alert = '<p class="error">&nbsp;</p>'
+    probs = saformat(selname, seltype, selgender, selbreed, 
+            selagenum+' '+selageunit, seldate, selhour, selmin)
     if request.method=='POST':
         selname = request.form['named']
         seltype = request.form['type']
@@ -254,20 +257,26 @@ def shelteranimals():
         selagenum = request.form['age']
         selageunit = request.form['ageunit']
         seldate = request.form['date']
-        selhour = request.form['hour']
-        selmin = request.form['minute']
-    # error handling
-    if seltype=='Cat' and selbreed=='Pit bull':
-        probs = ['0%']*5
-        error = 'Cats cannot be pit bulls! Please select again.'
-    else:
-        probs = saformat(selname, seltype, selgender, selbreed, selagenum+' '+selageunit, 
-        seldate, selhour, selmin)
-        error = '&nbsp;'
+        selhour = str(int(request.form['hour'])) # handle zero padding
+        selmin = str(int(request.form['minute'])) # handle zero padding
+        alert = '<div class="alert alert-success"><p class="error">P</p></div>'
+        # error handling
+        if seltype=='Cat' and selbreed=='Pit bull':
+            probs = ['0%']*5
+            alert = '<div class="alert alert-danger"><p class="error">Cats cannot be pit bulls! Please select again.</p></div>'
+        elif any([selhour==i for i in ['1','2','3','4']]):
+            selhour = '5'
+            probs = saformat(selname, seltype, selgender, selbreed, 
+            selagenum+' '+selageunit, seldate, selhour, selmin)
+            alert = '<div class="alert alert-warning"><p class="error">No animals delivered at that time. Hour set to 5am.</p></div>'
+        else:
+            alert = '<div class="alert alert-success"><p class="error">Prediction successful.</p></div>'
+            probs = saformat(selname, seltype, selgender, selbreed, 
+            selagenum+' '+selageunit, seldate, selhour, selmin)
     # modification date
     updated = moddate()
     return render_template('shelteranimals.html', probs=probs, updated=updated, 
     names=names, selname=selname, types=types, seltype=seltype, 
     breeds=breeds, selbreed=selbreed, genders=genders, selgender=selgender, 
     selagenum=selagenum, ageunits=ageunits, selageunit=selageunit, 
-    selhour=selhour, selmin=selmin, seldate=seldate, res=res, error = error)
+    selhour=selhour, selmin=selmin, seldate=seldate, res=res, alert=alert)

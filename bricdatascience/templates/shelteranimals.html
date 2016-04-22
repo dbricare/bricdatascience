@@ -92,12 +92,11 @@
               {% endfor %}
             </tr>
             </table>
-            <p class="error">{{ error|safe }}</p>
+            {{ alert | safe }}
             <hr class="sep">
             <p class="error">&nbsp;</p>
           <div class="panel panel-info">
-          <div class="panel-heading text-center"><h3><i>Select factors to include in 
-          outcome prediction</i></h3>
+          <div class="panel-heading text-center"><h4><b><i>Select factors to include in outcome prediction</i></b></h4>
           </div>
           <div class="panel-body">
             <form role="form" method="post" action="shelteranimals" 
