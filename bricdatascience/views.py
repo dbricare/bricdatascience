@@ -246,7 +246,7 @@ def shelteranimals():
     selhour = '17'
     selmin = '0'
     res = ''
-    alert = '<p class="error">&nbsp;</p>'
+    alert = '<div class="alert"><p class="error">&nbsp;</p></div>'
     probs = saformat(selname, seltype, selgender, selbreed, 
             selagenum+' '+selageunit, seldate, selhour, selmin)
     if request.method=='POST':
@@ -259,18 +259,17 @@ def shelteranimals():
         seldate = request.form['date']
         selhour = str(int(request.form['hour'])) # handle zero padding
         selmin = str(int(request.form['minute'])) # handle zero padding
-        alert = '<div class="alert alert-success"><p class="error">P</p></div>'
         # error handling
         if seltype=='Cat' and selbreed=='Pit bull':
             probs = ['0%']*5
-            alert = '<div class="alert alert-danger"><p class="error">Cats cannot be pit bulls! Please select again.</p></div>'
+            alert = '<div class="alert alert-danger fade"><p class="error">Cats cannot be pit bulls! Please select again.</p></div>'
         elif any([selhour==i for i in ['1','2','3','4']]):
             selhour = '5'
             probs = saformat(selname, seltype, selgender, selbreed, 
             selagenum+' '+selageunit, seldate, selhour, selmin)
-            alert = '<div class="alert alert-warning"><p class="error">No animals delivered at that time. Hour set to 5am.</p></div>'
+            alert = '<div class="alert alert-warning fade"><p class="error">No animals delivered at that time. Hour set to 5am.</p></div>'
         else:
-            alert = '<div class="alert alert-success"><p class="error">Prediction successful.</p></div>'
+            alert = '<div class="alert alert-success fade"><p class="error">Prediction successful.</p></div>'
             probs = saformat(selname, seltype, selgender, selbreed, 
             selagenum+' '+selageunit, seldate, selhour, selmin)
     # modification date
