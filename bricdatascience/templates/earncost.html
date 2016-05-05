@@ -80,15 +80,15 @@
             <div class="col-md-8">
               <p class="text-center"><i>Click on title to collapse/expand panels</i><p>
                 <div class="panel-group">
-                  <div class="panel panel-danger">
+                  <div class="panel panel-success">
                     <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse1">10% chance of earning ${{ earnings }}/year</a>
+                        <a data-toggle="collapse" href="#collapse1">50% chance of earning ${{ earnings }}/year</a>
                       </h4>
                     </div>
                     <div id="collapse1" class="panel-collapse collapse in">
                       <div class="panel-body">
-                      {{ dfs['10%'] | safe }}
+                      {{ dfs['50%'] | safe }}
                       </div>
                     </div>
                   </div>
@@ -104,15 +104,15 @@
                       </div>
                     </div>
                   </div>
-                  <div class="panel panel-success">
+                  <div class="panel panel-danger">
                     <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse3">50% chance of earning ${{ earnings }}/year</a>
+                        <a data-toggle="collapse" href="#collapse3">10% chance of earning ${{ earnings }}/year</a>
                       </h4>
                     </div>
                     <div id="collapse3" class="panel-collapse collapse in">
                       <div class="panel-body">
-                      {{ dfs['50%'] | safe }}
+                      {{ dfs['10%'] | safe }}
                       </div>
                     </div>
                   </div>
@@ -130,8 +130,8 @@
                     <li>Data is from US Dept. of Education <a href="https://collegescorecard.ed.gov/data/">College Scorecard</a> and spans years from 1996 to 2015</li>
                 </ul>
                 <hr>
-                <p><b><i>Use the controls below to see which schools match the desired    
-                annual tuition and alumni earnings.</i></b></p>
+                <p><i>Use the controls below to select desired    
+                annual tuition and alumni earnings.</i></p>
                 <form role="form" method="post" action="earncost">
                 <div class="form-group">
                   <label for="earn">Desired Earnings ($/year): </label>
@@ -159,19 +159,28 @@
 
         <!-- Related Projects Row -->
         <div class="row">
-
             <div class="col-lg-12">
                 <h3 class="page-header">Related Projects</h3>
             </div>
-            <div class="col-sm-3 col-xs-6">
-              <div class="jumbotron text-center related">
-                <h4><a href="{{ url_for('earncost') }}">U.S. University Tuition Cost and Alumni Earnings</a></h4>
+            <div class="col-md-3 col-xs-6">
+              <a href="{{ url_for('earncost') }}">
+              <img src="{{ url_for('static', 
+              filename='img/educationitem.jpg') }}" class="img-responsive img-rounded 
+              portfolio-item">
+              <div class="carousel-caption">
+                <h4>U.S. University Tuition Cost and Alumni Earnings</h4>
               </div>
+              </a>
             </div>
-            <div class="col-sm-3 col-xs-6">
-              <div class="jumbotron text-center related">
-                <h4><a href="{{ url_for('rankings') }}">U.S. University Rankings by Foreign Orgs</a></h4>
+            <div class="col-md-3 col-xs-6">
+              <a href="{{ url_for('rankings') }}">
+              <img src="{{ url_for('static', 
+              filename='img/educationitem.jpg') }}" class="img-responsive img-rounded 
+              portfolio-item">
+              <div class="carousel-caption">
+                <h4>U.S. University Rankings by Foreign Organizations</h4>
               </div>
+              </a>
             </div>
         </div>
         <!-- /.row -->
