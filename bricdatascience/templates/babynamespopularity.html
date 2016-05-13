@@ -109,24 +109,13 @@
 
             <div class="col-md-4">
                 <h3>Project Description</h3>
-                <p>Sometimes parents want to consider the popularity of a given 
-                name when deciding on one for their child. An uncommon name may be 
-                more preferred or perhaps one that appears more frequently.</p>
-                <p>This project scans all U.S. baby names from the year 1880 to 2014
-                (according to social security registration) to identify names with the 
-                least, most and somewhere-in-between popularity.</p>
-                <p><b><i>Use the controls below to filter names based on time, 
+                <p>Sometimes parents want to consider popularity when deciding on a name 
+                for their child.</p>
+                <p>This project ranks U.S. baby names from the year 1880 to 2014
+                (according to social security registration) by popularity.</p>
+                <p><b><i>Use the controls below to filter names based on year, 
                 gender, and popularity.</i></b></p>
                 <hr>
-<!-- 
-                <h3>Project Details</h3>
-                <ul>
-                    <li>Lorem Ipsum</li>
-                    <li>Dolor Sit Amet</li>
-                    <li>Consectetur</li>
-                    <li>Adipiscing Elit</li>
-                </ul>
- -->
                 
                 <form role="form" method="post" action="babynamespopularity" class="form-horizontal">
                 <div class="form-group text-center">
@@ -170,10 +159,10 @@
                 <div class="form-group text-center">
                   <label>Minimum name count: 
                   <a href="#" data-toggle="popover" title="Minimum name count" 
-                  data-content="<p>This value sets a lower-bound on names to be included 
-                  in the results.</p><p>It has no effect on highly popular names but a 
-                  large effect on low popularity names.</p><p>Its effect is also strongly 
-                  dependent on the number of years in the range.</p>">
+                  data-content="<p>This value sets a lower-bound on names to be included.
+                  </p><p>It has no effect on highly popular names but a 
+                  large effect on those with low popularity.</p><p>Its effect is also 
+                  strongly dependent on the number of years in the range.</p>">
                   <span class="glyphicon glyphicon-question-sign"></span></a>
                   <input type="number" name="mincount" min="100" max="10000"
                   step="100" value="{{ mincount }}" class="form-control"></label>
