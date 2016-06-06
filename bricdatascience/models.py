@@ -9,7 +9,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 
 # load data
 df = pd.read_csv('EarningsTuition.csv', sep=',', encoding='utf-8')
-dfraw = pd.read_csv('NationalNames.csv', sep=',', encoding='utf-8')
+dfraw = pd.read_csv('babynames.csv', sep=',')
 dfall = pd.read_csv('gda20160315.tsv', sep='\t')
 gbc = joblib.load('gbc.pkl')
 
