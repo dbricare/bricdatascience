@@ -34,6 +34,11 @@ def rankings():
 @app.route('/loans')
 def loans():
     return app.send_static_file('loan-analysis.html')
+    
+### expedia recommendations
+@app.route('/expedia')
+def expedia():
+    return app.send_static_file('expedia.html')
 
 ### college earnings and cost   
 @app.route('/earncost', methods=['GET', 'POST'])
