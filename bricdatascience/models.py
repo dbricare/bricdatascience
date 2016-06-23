@@ -22,15 +22,15 @@ def genidx():
             },
             {'name':'shelteranimals',
              'title':'Shelter Animal Outcomes', 'img':'img/pet.jpg',
-             'text':'Using machine learning to predict the outcome for animals dropped off at a municipal animal shelter. Project based on a 2016 kaggle competition.'
+             'text':'Using machine learning to predict the outcome for animals dropped off at a municipal animal shelter. Inspired by a 2016 kaggle competition.'
              },
              {'name':'expedia',
              'title':'Travel Recommendations', 'img':'img/travel.jpg',
-             'text':'Recommending hotels for Expedia users from search parameters. Project based on a 2016 kaggle competition.'
+             'text':'Recommending hotels for Expedia users from search parameters. Inspired by a 2016 kaggle competition.'
              },
              {'name':'babynamespopularity',
              'title':'Trends in U.S. Baby Names', 'img':'img/child.jpg',
-             'text':"For parents (or others) who are curious about the popularity of children's names. Find out the historical popularity of your own name or perhaps a potential name for your child."
+             'text':"For anyone curious about the changing trends in name popularity for the last 100+ years."
              },
              {'name':'earncost',
              'title':'College Outcomes & Rankings', 'img':'img/education.jpg',
