@@ -11,12 +11,12 @@ from bokeh.models import HoverTool, NumeralTickFormatter, TapTool, OpenURL
 from bokeh.embed import components
 
 ### flask page functions
-@app.route('/')
-def main():
-    return redirect('/index')
+# @app.route('/')
+# def main():
+#     return redirect('/index')
 
 ### landing page
-@app.route('/index')
+@app.route('/')
 def index():
     arr = genidx()
     # modification date
