@@ -184,7 +184,7 @@ def genediseaselink():
     xx = dfall['score_total']
 
     # Generate plot
-    output_file("templates/index.html")
+    output_file("templates/gda.html")
     dfall['color'] = dfall['category'].map(lambda x: catclr[x])
     source = ColumnDataSource(
         data=dict(
@@ -211,12 +211,14 @@ def genediseaselink():
     p.xaxis.axis_label_text_font = 'Source Sans Pro'
     p.yaxis.axis_label_text_font = 'Source Sans Pro'
     if selperc != '00':
-        xcir = np.linspace(-0.6,1,100)
-        ycir = 1-np.sqrt(np.square(cirrad)-np.square(xcir-1))
-        xcir = np.append(xcir, 1.0)
-        ycir = np.append(ycir, 1.0)
-        p.patch(xcir, ycir, line_color='#33ff33', fill_alpha=0.15, color='#ccffcc', 
-        line_width=1)
+#         xcir = np.linspace(-0.6,1,100)
+#         ycir = 1-np.sqrt(np.square(cirrad)-np.square(xcir-1))
+#         xcir = np.append(xcir, 1.0)
+#         ycir = np.append(ycir, 1.0)
+#         p.patch(xcir, ycir, line_color='#33ff33', fill_alpha=0.15, color='#ccffcc', 
+#         line_width=1)
+        p.ellipse(x=1.0, y=1.0, width=2*cirrad, height=2*cirrad, 
+                  line_color='#33ff33', fill_alpha=0.15, color='#ccffcc', line_width=1)
     p.circle('x', 'y', size=15+dfall['PrevalenceCode']*5, fill_alpha=0.5, 
     color=dfall['color'], source=source, line_width=0.75, line_color='#000000', 
     name='pts')  

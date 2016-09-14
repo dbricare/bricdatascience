@@ -276,7 +276,7 @@ label           { font-family: 'Raleway', sans-serif;
                   text-align: center; color: #444; }
 .dropdown       { /* padding-top: 16px; */ padding-bottom: 16px; text-align: center; }
 .graphmenu      { padding: 0 20px 0 20px; }
-.bokeh			{ border: 1px solid #777; padding: 0 20px 0 20px; text-align: left; }
+.bokeh			{ border: 1px solid #777; padding: 10px; text-align: left; }
 .mpl			{ border: 1px solid #777; padding: 24px; text-align: center; 
 				  width: 90%; margin: 0 auto; }
 .dtbl           { margin: 0px auto; border: 1px; }
