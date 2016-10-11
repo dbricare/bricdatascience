@@ -22,7 +22,12 @@ def index():
     # modification date
     updated = moddate()
     return render_template('index.html', updated=updated, arr=arr)
- 
+
+### King county house prices
+@app.route('/kingcohouseprices')
+def kingcohouseprices():
+    return app.send_static_file('kingcohouseprices.html') 
+
 ### college rankings
 @app.route('/rankings')
 def rankings():
@@ -136,7 +141,7 @@ def babynamespopularity():
     # add name labels and other formatting
     p.text(x=dfout.Offset, y=dfout.index+0.8, text=dfout.Name.tolist(), 
             text_color=dfout.TextColor.tolist(), text_align="center", 
-            text_font_size="0.8em", text_font="helvetica neue")
+            text_font_size="12px", text_font="helvetica neue")
     p.xaxis.axis_label = "Number of Babies Above Minimum Count"
     p.ygrid.grid_line_color = None
     p.yaxis.major_tick_line_color = None
@@ -144,7 +149,7 @@ def babynamespopularity():
     p.yaxis.major_label_text_color = None
     p.xaxis[0].formatter = NumeralTickFormatter(format='0,0')
     # make graph responsive
-    p.responsive = True
+    p.sizing_mode = 'scale_width'
     # set plot components
     script, div = components(p)
     # modification date
@@ -225,7 +230,7 @@ def genediseaselink():
     url = "http://www.ncbi.nlm.nih.gov/pubmed/?term=@desc+@desc2"
     taptool = p.select(type=TapTool)
     taptool.callback = OpenURL(url=url)
-    p.responsive = True
+    p.sizing_mode = 'scale_width'
     script, div = components(p)
     # modification date
     updated = moddate()

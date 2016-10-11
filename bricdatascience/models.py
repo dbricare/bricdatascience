@@ -11,35 +11,49 @@ from sklearn.ensemble import GradientBoostingClassifier
 df = pd.read_csv('EarningsTuition.csv', sep=',', encoding='utf-8')
 dfraw = pd.read_csv('babynames.csv', sep=',')
 dfall = pd.read_csv('gda20160315.tsv', sep='\t')
-gbc = joblib.load('gbc.pkl')
+# gbc = joblib.load('gbc.pkl')
+gbc = joblib.load('gbc_sklearn_018.pkl')
 
 # generate index page
 def genidx():
     # ordered list of projects and properties (name, pgtitle, text, img)
-    arr = [{'name':'genediseaselink', 
+    arr = [
+            {'name':'kingcohouseprices', 
+            'title':'House Prices in King County', 'img':'img/house.jpg',
+            'text': 'Evaluating and optimizing several machine learning models to accurately predict house prices in 2014-2015 King County, WA.',
+            'doc': 'Jupyter notebook'
+            },
+            {'name':'genediseaselink', 
             'title':'Genetic Links to Health', 'img':'img/gda.jpg',
-            'text': 'Identifying the most likely genetic cause of a disease can help pharmaceutical companies better target their R&D efforts. This data-centric approach to drug development may help bring down consumer drug prices.'
+            'text': 'Identifying the most likely genetic cause of a disease can help pharmaceutical companies better target their R&D efforts. This data-centric approach to drug development may help bring down consumer drug prices.',
+            'doc': 'Web application'
             },
             {'name':'shelteranimals',
              'title':'Shelter Animal Outcomes', 'img':'img/pet.jpg',
-             'text':'Using machine learning to predict the outcome for animals dropped off at a municipal animal shelter. Inspired by a 2016 kaggle competition.'
+             'text':'Using machine learning to predict the outcome for animals dropped off at a municipal animal shelter. Inspired by a 2016 kaggle competition.',
+            'doc': 'Web application'
              },
              {'name':'expedia',
              'title':'Travel Recommendations', 'img':'img/travel.jpg',
-             'text':'Recommending hotels for Expedia users from search parameters. Inspired by a 2016 kaggle competition.'
+             'text':'Recommending hotels for Expedia users from search parameters. Inspired by a 2016 kaggle competition.',
+             'doc': 'Jupyter notebook'
              },
              {'name':'babynamespopularity',
              'title':'Trends in U.S. Baby Names', 'img':'img/child.jpg',
-             'text':"For anyone curious about the changing trends in name popularity for the last 100+ years."
+             'text':"For anyone curious about the changing trends in name popularity for the last 100+ years.",
+             'doc': 'Web application'
              },
              {'name':'earncost',
              'title':'College Outcomes & Rankings', 'img':'img/education.jpg',
-             'text':'Data from the US Dept. of Education and three independent international organizations is combined to evaluate the performance of US universities.'
+             'text':'Data from the US Dept. of Education and three independent international organizations is combined to evaluate the performance of US universities.',
+             'doc': 'Web application'
              },
              {'name':'loans',
              'title':'Personal Loan Outcomes', 'img':'img/money.jpg',
-             'text':'A brief exploratory analysis of personal loan data, in search of insights that might aid in predicting when and what loans will default.'
-             }]
+             'text':'A brief exploratory analysis of personal loan data, in search of insights that might aid in predicting when and what loans will default.',
+             'doc': 'Jupyter notebook'
+             }
+             ]
     # specify striping
     for idx,item in enumerate(arr):
         if idx%2 == 0:
@@ -54,7 +68,7 @@ def moddate():
     modt=datetime.date.fromtimestamp(t)
     return 'Last updated: '+modt.strftime('%B %e, %Y')
 
-# baby names function
+### baby names function
 def babynamepop(gender, popularity, earliest, latest, viewsize=20, mincount=1000):
     '''
     Operates on dataframe 'dfraw'
@@ -75,7 +89,7 @@ def babynamepop(gender, popularity, earliest, latest, viewsize=20, mincount=1000
                                 inplace=False).reset_index(drop=True)
     return dfout
 
-# college function
+### college function
 def knnestimate(earn, tuition, nn=5):
     '''
     Function used in earncost to retrieve colleges that most closely match the user selected alumni earnings and annual tutition.
@@ -102,7 +116,7 @@ def knnestimate(earn, tuition, nn=5):
         dfs[percent] = testhtml
     return dfs
 
-# gene-disease association
+### gene-disease association
 def gda():
     catclr = {'Kidneys and urinary system': '#7f7f7f', 
               'Food, nutrition, and metabolism': '#e377c2', 
@@ -139,7 +153,7 @@ def gda():
     perclist = sorted(perc_dict.items(), key=operator.itemgetter(0))
     return dfall, catlist, atypelist, perclist, catclr, disease_dict, atype_dict
     
-# shelter animal outcomes prediction
+### shelter animal outcomes prediction
 def predprob(df):
     # output array has alphabetical order for class names
     nparr = gbc.predict_proba(df)
@@ -152,7 +166,7 @@ def convage(age):
     num = int(re.match('\d+',age).group())
     period = re.search('\w+$', age).group()
     return int(num*dperiod[period])
-    
+
 def saformat(name,type,sex,breed,age,date,hour,minute):
     cols = ['Name_0', 'Name_1', 'AnimalType_Cat', 'AnimalType_Dog',
        'SexuponOutcome_Intact Female', 'SexuponOutcome_Intact Male',
