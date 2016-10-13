@@ -19,8 +19,8 @@ def genidx():
     # ordered list of projects and properties (name, pgtitle, text, img)
     arr = [
             {'name':'kingcohouseprices', 
-            'title':'House Prices in King County', 'img':'img/house.jpg',
-            'text': 'Evaluating and optimizing several machine learning models to accurately predict house prices in 2014-2015 King County, WA.',
+            'title':'Predicting Home Prices', 'img':'img/house.jpg',
+            'text': 'Evaluating and optimizing several machine learning models to accurately predict home prices in 2014-2015 King County, WA.',
             'doc': 'Jupyter notebook'
             },
             {'name':'genediseaselink', 
