@@ -71,6 +71,11 @@ h3.panel-title {
     font-style: italic;
 }
 
+.candlestickfooter {
+    font-size: 12px;
+    font-style: italic;
+    margin: 40px 0;
+}
 
 .fade {
     opacity:1;

@@ -3,9 +3,14 @@ Functions for serving webpages.
 '''
 import numpy as np
 import pandas as pd
-import os, datetime, operator, joblib, re
+import os, datetime, operator, joblib, re, requests
 from sklearn.neighbors import NearestNeighbors
 from sklearn.ensemble import GradientBoostingClassifier
+
+from bokeh.plotting import figure, save, show, ColumnDataSource
+from bokeh.palettes import Set1
+from bokeh.models import Legend
+from collections import OrderedDict
 
 # load data
 df = pd.read_csv('EarningsTuition.csv', sep=',', encoding='utf-8')
@@ -215,3 +220,73 @@ def saformat(name,type,sex,breed,age,date,hour,minute):
             dfsa.set_value(0, chop+locs[chop], 1)
     nparr = gbc.predict_proba(dfsa)[0]
     return ['{:.1%}'.format(float(p)) for p in nparr]
+
+
+###--------------------------------------------------------------
+def df_from_ticker(ticker):
+    '''
+    Given a ticker, retrieves historical daily stock price data from quandl.
+    '''
+    # keep apikey hidden from github
+    with open('apikey.txt', 'r') as f:
+        apikey = f.read().strip()
+    baseurl = 'https://www.quandl.com/api/v3/datasets/WIKI/'
+    suffixurl = '.json?api_key='+apikey
+    call = baseurl+ticker+suffixurl
+    rj = requests.get(call).json()
+    dataset = rj.get('dataset','error')
+
+    #error handling (incorrect ticker)
+    if dataset=='error':
+        return pd.DataFrame([]), '', ''
+
+    df = pd.DataFrame(dataset['data'], columns=dataset['column_names'])
+    df['Date'] = pd.to_datetime(df['Date'])
+    df.set_index('Date', drop=True, inplace=True)
+    df.sort_index(inplace=True, ascending=True)
+
+    df['Volume'] = df['Volume'].astype(int)
+    df['Adj. Volume'] = df['Adj. Volume'].astype(int)
+
+    name = dataset['name']
+    desc = dataset['description']
+
+    return df, name, desc
+
+def candleplot(df):
+    '''
+    Produces bokeh interactive plot from equity prices.
+    '''
+    dfma = df['Adj. Close']
+    for window in [10,20,50,200]:
+        ser = pd.Series(df['Adj. Close'].rolling(window=window).mean(), name=str(window)+' day moving avg')
+        dfma = pd.concat((dfma, ser), axis=1)
+
+    # calculations
+    mids = (df['Adj. Open'] + df['Adj. Close'])/2
+    spans = abs(df['Adj. Close']-df['Adj. Open'])
+
+    inc = df['Adj. Close'] > df['Adj. Open']
+    dec = df['Adj. Open'] > df['Adj. Close']
+    w = 16*60*60*1000 # 2/3 day in ms
+
+    p = figure(x_axis_label='Date', x_axis_type='datetime', y_axis_label='Price ($)', 
+               tools=['pan,box_zoom,reset,save,crosshair, wheel_zoom'], toolbar_location='right', 
+               plot_width=950, plot_height=600)
+
+    p.segment(df.index, df['Adj. High'], df.index, df['Adj. Low'], color="black")
+    p.rect(df.index[inc], mids[inc], w, spans[inc], fill_color="#5cd65c", line_color="black")
+    p.rect(df.index[dec], mids[dec], w, spans[dec], fill_color="#F2583E", line_color="black")
+
+    lines = []
+    i=0
+    for col,clr in zip(dfma.columns[1:],reversed(Set1[1+len(dfma.columns[1:])])):
+        lines.append(p.line(dfma.index, dfma[col], color=clr, line_width=1.5))
+
+    legend = Legend(items=list(OrderedDict(zip(dfma.columns[1:],[[i] for i in lines])).items()), 
+                    location=(55, 0), spacing=10)
+
+    p.add_layout(legend, 'above')
+    p.legend.orientation = 'horizontal'
+
+    return p

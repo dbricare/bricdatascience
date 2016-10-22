@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Equities Price Movement</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" 
+    rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static',filename='css/portfolio-item.css') }}" 
+    rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Bokeh JS and CSS -->
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.3.min.css" 
+    type="text/css" />
+    <script type="text/javascript" 
+    src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.3.min.js"></script>
+    {{ script | safe }}
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('index') }}">Portfolio Home</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<!-- 
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ url_for('earncost') }}">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('rankings') }}">Rankings</a>
+                    </li>
+                </ul>
+ -->
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <!-- Portfolio Item Heading -->
+      <div class="row">
+          <div class="col-lg-12">
+              <h1 class="page-header">{{ header|safe }}</h1>
+          </div>
+      </div>
+      <!-- /.row -->
+
+      <!-- Portfolio Item Row -->
+      <div class="row">
+        <div class="col-md-9">
+
+        <!-- bokeh plot -->
+        <div>
+
+          {{ div|safe }}
+          <p>&nbsp;</p>
+
+        </div>
+
+          <!-- Panel -->
+          <div class="panel-group">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" href="#collapse1">Dividend history (post-2000)</a></h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                  {{ dividend | safe }}
+
+                </div>
+              </div>
+              <!-- Panel body -->
+            </div>
+          </div>
+          <!-- Panel group -->
+
+          <!-- Panel -->
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h4 class="panel-title"><a data-toggle="collapse" href="#collapse2">Split history</a></h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+              <div class="panel-body">
+
+                {{ split | safe }}
+
+              </div>
+            </div>
+            <!-- Panel body -->
+          </div>        
+          <!-- Panel group -->
+
+          <div class="candlestickfooter">
+            <p>Data description:</p>
+            {{ description|safe }}
+          </div>
+
+        </div>
+
+        <div class="col-md-3">
+          <p>&nbsp;</p>
+          <form method="post" action="candlestick">
+            <div class="form-group">
+              <label for="ticker">Enter ticker:</label>
+              <input type="text" class="form-control" id="ticker" name="ticker" value="{{ ticker|safe }}">
+            </div>
+            <input type="submit" class="btn btn-default" value="Submit">
+          </form>
+          <p>&nbsp;</p>
+          <h4>Project Description</h4>
+          <p>This project is designed to serve as a source of elementary information on equities including historical prices, dividends, and splits.</p>
+          <h4>Project Details</h4>
+          <ul>
+              <li>Full project analysis on <a href="http://github.com/dbricare/">GitHub</a></li>
+              <li>Tools used include Python <a href="http://pandas.pydata.org">pandas</a> and <a href="http://bokeh.pydata.org">bokeh</a> libraries</li>
+              <li>Data retrieved with the <a href="http://quandl.com">Quandl</a> API</li>
+          </ul>
+        </div>
+      </div>
+      <!-- /.row -->
+
+        <!-- Related Projects Row -->
+<!-- 
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">Related Projects</h3>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <div class="jumbotron text-center related">
+                <h4><a href="{{ url_for('earncost') }}">U.S. University Tuition Cost and Alumni Earnings</a></h4>
+              </div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <div class="jumbotron text-center related">
+                <h4><a href="{{ url_for('rankings') }}">U.S. University Rankings by Foreign Orgs</a></h4>
+              </div>
+            </div>
+        </div>
+ -->
+        <!-- /.row -->
+        <hr>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>{{ updated }}</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static',filename='js/jquery.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+
+
+</body>
+
+</html>

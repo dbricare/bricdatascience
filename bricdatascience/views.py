@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 # import dill as pickle
 from bricdatascience.models import moddate, babynamepop, knnestimate, gda, saformat, genidx
+from bricdatascience.models import df_from_ticker, candleplot
 # from sklearn.neighbors import NearestNeighbors
 from bricdatascience import app
 from flask import Flask, render_template, request, redirect
@@ -291,3 +292,43 @@ def shelteranimals():
     breeds=breeds, selbreed=selbreed, genders=genders, selgender=selgender, 
     selagenum=selagenum, ageunits=ageunits, selageunit=selageunit, 
     selhour=selhour, selmin=selmin, seldate=seldate, res=res, alert=alert)
+
+
+### equities analysis
+@app.route('/candlestick', methods=['GET', 'POST'])
+def candlestick():
+    # first time through
+    if request.method=='GET':
+        ticker='AAPL'
+    elif request.method=='POST':
+    # else:
+        ticker=request.form['ticker'].upper()
+
+    df,name,desc = df_from_ticker(ticker)
+
+    if len(df)==0:
+        error = '<div class="alert alert-danger">'+\
+        '<strong>No Matching Ticker</strong> Please enter a new ticker.'+\
+        '</div>'
+        return render_template('candlestick.html', header='Equities Price Movement', div=error, 
+            ticker=ticker)
+
+    else:
+        dfdrop = df.drop(['Open', 'High', 'Low', 'Close', 'Volume'], axis=1, inplace=False)
+        dividend_table = dfdrop[(dfdrop['Ex-Dividend']>0) & (df.index>=pd.to_datetime('2000-01-01'))].drop(
+            'Split Ratio', axis=1, inplace=False).to_html(
+            classes='table', float_format=lambda x: '{:.2f}'.format(x))
+        split_table = dfdrop[dfdrop['Split Ratio']>1.0].drop(
+            'Ex-Dividend', axis=1, inplace=False).to_html(
+            classes='table', float_format=lambda x: '{:.2f}'.format(x))
+
+        #plotting
+        p = candleplot(df)
+        # make graph responsive
+        p.sizing_mode = 'scale_width'
+        # set plot components
+        script, div = components(p)
+
+        return render_template('candlestick.html', dividend=dividend_table, split=split_table, header=name, 
+                                description=desc, script=script, div=div, ticker=ticker, 
+                                updated = moddate())
