@@ -1,0 +1,5 @@
+Apple Inc (AAPL) Prices, Dividends, Splits and Trading Volume
+End of day open, high, low, close and volume, dividends and splits, and split/dividend adjusted open, high, low close and volume for Apple Inc. (AAPL). Ex-Dividend is non-zero on ex-dividend dates. Split Ratio is 1 on non-split dates. Adjusted prices are calculated per CRSP (<a href="http://www.crsp.com/products/documentation/crsp-calculations" rel="nofollow" target="blank">www.crsp.com/products/documentation/crsp-calculations</a>)
+
+<p>This data is in the public domain. You may copy, distribute, disseminate or include the data in other products for commercial and/or noncommercial purposes.</p>
+<p>This data is part of Quandl's Wiki initiative to get financial data permanently into the public domain. Quandl relies on users like you to flag errors and provide data where data is wrong or missing. Get involved: <a href="mailto:connect@quandl.com" rel="nofollow" target="blank">connect@quandl.com</a>

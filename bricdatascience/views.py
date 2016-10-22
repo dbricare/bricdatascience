@@ -297,24 +297,27 @@ def shelteranimals():
 ### equities analysis
 @app.route('/candlestick', methods=['GET', 'POST'])
 def candlestick():
-    # first time through
+    # first time loading to fetch data from API
     if request.method=='GET':
         ticker='AAPL'
-    elif request.method=='POST':
-    # else:
-        ticker=request.form['ticker'].upper()
+        with open('candleget.txt','r') as f:
+            name=f.readline()
+            desc=f.read()
+        df = pd.read_csv('candleget.csv', sep=',', index_col='Date', parse_dates=True)            
 
-    df,name,desc = df_from_ticker(ticker)
+    elif request.method=='POST':
+        ticker=request.form['ticker'].strip().upper()
+        df,name,desc = df_from_ticker(ticker)
 
     if len(df)==0:
         error = '<div class="alert alert-danger">'+\
-        '<strong>No Matching Ticker</strong> Please enter a new ticker.'+\
+        '<strong>No Matches Found</strong> Please enter a new ticker.'+\
         '</div>'
-        return render_template('candlestick.html', header='Equities Price Movement', div=error, 
-            ticker=ticker)
-
+        return render_template('candlestick.html', header='Equities Price Movement',
+        div=error, ticker=ticker)
     else:
-        dfdrop = df.drop(['Open', 'High', 'Low', 'Close', 'Volume'], axis=1, inplace=False)
+        dfdrop = df.drop(['Open', 'High', 'Low', 'Close', 'Volume'], axis=1, 
+                          inplace=False)
         dividend_table = dfdrop[(dfdrop['Ex-Dividend']>0) & (df.index>=pd.to_datetime('2000-01-01'))].drop(
             'Split Ratio', axis=1, inplace=False).to_html(
             classes='table', float_format=lambda x: '{:.2f}'.format(x))
@@ -329,6 +332,6 @@ def candlestick():
         # set plot components
         script, div = components(p)
 
-        return render_template('candlestick.html', dividend=dividend_table, split=split_table, header=name, 
-                                description=desc, script=script, div=div, ticker=ticker, 
-                                updated = moddate())
+        return render_template('candlestick.html', dividend=dividend_table,
+        split=split_table, header=name, description=desc, script=script, div=div, 
+        ticker=ticker, updated = moddate())

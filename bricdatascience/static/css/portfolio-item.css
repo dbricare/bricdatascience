@@ -20,6 +20,15 @@ a {
     font-weight: 600;
 }
 
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
 .formlbls { 
     padding: 12px; 
 }

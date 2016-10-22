@@ -62,9 +62,11 @@ target/
 .ipynb_checkpoints
 
 # ignore data
-*.csv
+# *.csv
+*.ipynb
 *.tsv
 *.pkl
+apikey.txt
 
 # ignore temp files
 ._*
