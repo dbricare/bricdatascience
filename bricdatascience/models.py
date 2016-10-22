@@ -38,6 +38,11 @@ def genidx():
              'text':'Using machine learning to predict the outcome for animals dropped off at a municipal animal shelter. Inspired by a 2016 kaggle competition.',
             'doc': 'Web application'
              },
+             {'name':'candlestick',
+             'title':'Equity Price Movement', 'img':'img/stocks.jpg',
+             'text':'Provides elementary information concerning equity prices, movement, dividends, and splits.',
+             'doc': 'Web application'
+             },
              {'name':'expedia',
              'title':'Travel Recommendations', 'img':'img/travel.jpg',
              'text':'Recommending hotels for Expedia users from search parameters. Inspired by a 2016 kaggle competition.',
