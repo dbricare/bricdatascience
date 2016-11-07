@@ -40,7 +40,7 @@ def genidx():
              },
              {'name':'candlestick',
              'title':'Equity Price Movement', 'img':'img/stocks.jpg',
-             'text':'Provides elementary information including prices, movement, dividends, splits, and calculates moving averages for 3000 US equities.',
+             'text':'Provides elementary information including prices, movement, dividends, splits, and calculated moving averages for 3000 US equities.',
              'doc': 'Web application'
              },
              {'name':'expedia',
