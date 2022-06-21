@@ -18,7 +18,7 @@ jsonpointer==1.9
 language-selector==0.1
 MarkupSafe==0.23
 matplotlib==1.5.2
-numpy==1.11.1
+numpy==1.22.0
 oauthlib==1.0.3
 pandas==0.18.1
 prettytable==0.7.2
